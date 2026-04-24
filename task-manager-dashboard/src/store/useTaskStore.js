@@ -4,13 +4,13 @@ import { persist } from 'zustand/middleware';
 const useTaskStore = create(
   persist(
     (set, get) => ({
-      // --- State ---
+      // State
       tasks: [],
       isLoading: false,
       error: null,
       filter: 'all',
 
-      // --- Actions ---
+      // Actions 
       setFilter: (filter) => set({ filter }),
 
       fetchTasks: async () => {
