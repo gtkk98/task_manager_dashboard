@@ -50,6 +50,13 @@ const useTaskStore = create((set) => ({
         })));
     },
 
+    // Delete Task
+    deleteTask: (id) => {
+        set((state) => ({
+            tasks: state.tasks.filter((task) => task.id !== id),
+        }));
+    }
+
 }));
 
 export default useTaskStore;
