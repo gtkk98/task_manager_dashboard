@@ -49,5 +49,7 @@ const useTaskStore = create((set, get) => ({
             ),
         })));
     },
-    
-}))
+
+}));
+
+export default useTaskStore;
