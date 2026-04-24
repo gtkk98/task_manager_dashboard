@@ -3,10 +3,10 @@
 A simple, responsive Task manager dashboard built for a front-end assignment.
 
 ## Tech Stack
--- React
--- Zustand
--- Tailwind CSS
--- Lucid React (Icon)
+* React - Data fetch and hook
+* Zustand - State Management
+* Tailwind CSS - Styling
+* Lucid React - Icon
 
 ## Features
 * Fetch Tasks: Pulls initial tasks from the JSONPlaceholder API.
