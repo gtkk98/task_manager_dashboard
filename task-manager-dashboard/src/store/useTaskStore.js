@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 // creates a custom hook called useTaskStore that stores and manages task-related state.
-const useTaskStore = create((set, get) => ({
+const useTaskStore = create((set) => ({
     // State
     tasks: [],
     isLoading: false,

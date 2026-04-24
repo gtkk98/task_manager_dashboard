@@ -1,4 +1,4 @@
-import React from "react";
+import "react";
 import useTaskStore from "../store/useTaskStore";
 
 const FilterBar = () => {

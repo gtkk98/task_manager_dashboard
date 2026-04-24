@@ -1,4 +1,4 @@
-import React from "react";
+import "react";
 import useTaskStore from "../store/useTaskStore";
 
 const TaskItem = ({ task }) => {
@@ -20,3 +20,5 @@ const TaskItem = ({ task }) => {
         </div>
     );
 };
+
+export default TaskItem;
