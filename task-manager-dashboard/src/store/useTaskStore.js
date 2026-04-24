@@ -39,5 +39,15 @@ const useTaskStore = create((set, get) => ({
 
         // new task shows at the top of list
         set((state) => ({tasks: [newTask, ...state.tasks]}));
-    }
+    },
+
+    // Toggle completion
+    toggleTaskCompletion: (id) => {
+        set((state => ({
+            tasks: state.tasks.map((task) => 
+                task.id === id ? {...task, completed: !task.completed } : task
+            ),
+        })));
+    },
+    
 }))
