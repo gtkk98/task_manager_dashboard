@@ -18,4 +18,16 @@ const TaskList = () => {
             return !task.completed;
         return true; // all
     });
+
+    if (isLoading) {
+        return <div className="text-center py-8 text-gray-500">Loading tasks...</div>;
+    }
+
+    if (error) {
+        return <div className="text-center py-8 text-gray-500">Error: {error}</div>;
+    }
+
+    if (filteredTasks.length === 0) {
+        return <div className="text-center py-8 text-gray-500">Not task found.</div>;
+    }
 }
