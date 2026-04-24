@@ -20,4 +20,8 @@ A simple, responsive Task manager dashboard built for a front-end assignment.
 
 ## How to run
 -- Clone the repository
-git clone 
+''' bash
+1. git clone https://github.com/gtkk98/task_manager_dashboard.git
+2. cd task-manager-dashboard
+3. npm install
+4. npm run dev
