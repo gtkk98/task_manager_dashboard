@@ -14,7 +14,6 @@ const useTaskStore = create(
       setFilter: (filter) => set({ filter }),
 
       fetchTasks: async () => {
-        // If we already have tasks in localStorage, don't fetch from the API again to avoid overwriting user data
         if (get().tasks.length > 0) return;
 
         set({ isLoading: true, error: null });
@@ -54,7 +53,7 @@ const useTaskStore = create(
     }),
     {
       name: 'task-storage', // The key used in localStorage
-      partialize: (state) => ({ tasks: state.tasks }), // We only want to save the tasks array, not the loading states or filters
+      partialize: (state) => ({ tasks: state.tasks }),
     }
   )
 );
