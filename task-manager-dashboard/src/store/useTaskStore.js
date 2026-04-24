@@ -1,62 +1,62 @@
-import { create } from "zustand";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-// creates a custom hook called useTaskStore that stores and manages task-related state.
-const useTaskStore = create((set) => ({
-    // State
-    tasks: [],
-    isLoading: false,
-    error: null,
-    filter: 'all', // can be 'all', 'completed', 'incompleted'
+const useTaskStore = create(
+  persist(
+    (set, get) => ({
+      // --- State ---
+      tasks: [],
+      isLoading: false,
+      error: null,
+      filter: 'all',
 
-    // operations
-    
-    // Change filter
-    setFilter: (filter) => set({ filter }),
+      // --- Actions ---
+      setFilter: (filter) => set({ filter }),
 
-    // Fetch task from API
-    fetchTasks: async () => {
-        set({ isLoading: true, error: null});
+      fetchTasks: async () => {
+        // If we already have tasks in localStorage, don't fetch from the API again to avoid overwriting user data
+        if (get().tasks.length > 0) return;
+
+        set({ isLoading: true, error: null });
         try {
-            // use a public API
-            const response = await fetch ('https://jsonplaceholder.typicode.com/todos?_limit=5');
-            if (!response.ok) throw new Error('Filed to fetch task');
-
-            const data = await response.json();
-            set({tasks: data, isLoading: false});
-            
+          const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=5');
+          if (!response.ok) throw new Error('Failed to fetch tasks');
+          
+          const data = await response.json();
+          set({ tasks: data, isLoading: false });
         } catch (error) {
-            set({ error: error.message, isLoading: false})
+          set({ error: error.message, isLoading: false });
         }
-    },
+      },
 
-    //  add a new task
-    addTask: (title) => {
+      addTask: (title) => {
         const newTask = {
-            id: Date.now(), // generate a unique ID 
-            title,
-            completed: false,
+          id: Date.now(),
+          title,
+          completed: false,
         };
+        set((state) => ({ tasks: [newTask, ...state.tasks] }));
+      },
 
-        // new task shows at the top of list
-        set((state) => ({tasks: [newTask, ...state.tasks]}));
-    },
-
-    // Toggle completion
-    toggleTaskCompletion: (id) => {
-        set((state => ({
-            tasks: state.tasks.map((task) => 
-                task.id === id ? {...task, completed: !task.completed } : task
-            ),
-        })));
-    },
-
-    // Delete Task
-    deleteTask: (id) => {
+      toggleTaskCompletion: (id) => {
         set((state) => ({
-            tasks: state.tasks.filter((task) => task.id !== id),
+          tasks: state.tasks.map((task) =>
+            task.id === id ? { ...task, completed: !task.completed } : task
+          ),
         }));
-    }
+      },
 
-}));
+      deleteTask: (id) => {
+        set((state) => ({
+          tasks: state.tasks.filter((task) => task.id !== id),
+        }));
+      }
+    }),
+    {
+      name: 'task-storage', // The key used in localStorage
+      partialize: (state) => ({ tasks: state.tasks }), // We only want to save the tasks array, not the loading states or filters
+    }
+  )
+);
 
 export default useTaskStore;
