@@ -27,5 +27,17 @@ const useTaskStore = create((set, get) => ({
         } catch (error) {
             set({ error: error.message, isLoading: false})
         }
+    },
+
+    //  add a new task
+    addTask: (title) => {
+        const newTask = {
+            id: Date.now(), // generate a unique ID 
+            title,
+            completed: false,
+        };
+
+        // new task shows at the top of list
+        set((state) => ({tasks: [newTask, ...state.tasks]}));
     }
 }))
