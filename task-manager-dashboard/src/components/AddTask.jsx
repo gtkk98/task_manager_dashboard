@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import useTaskStore from "../store/useTaskStore";
 
 const AddTask = () => {
@@ -23,9 +23,12 @@ const AddTask = () => {
             className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button type="submit"
+            className="px-6 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors"
             >
-                
+                Add
             </button>
         </form>
-    )
-}
+    );
+};
+
+export default AddTask;
